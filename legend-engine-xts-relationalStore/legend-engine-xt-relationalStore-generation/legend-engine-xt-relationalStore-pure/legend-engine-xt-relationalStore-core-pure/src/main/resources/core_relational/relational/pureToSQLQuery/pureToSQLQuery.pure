@@ -6294,7 +6294,7 @@ function meta::relational::functions::pureToSqlQuery::buildExistsAsJoinWithNullC
          print(if(!$context.debug, |'',
                  | $context.space+'   (S)Exists condition result>  '+$existsSubSelect->printDebugQuery($context.space, $extensions)));
 
-         let targetAlias =  ^TableAlias(name=$childNode.alias.name+buildNodeId($nodeId, '_ecq'), relationalElement=$existsSubSelect);
+         let targetAlias =  ^TableAlias(name=$childNode.alias.name+'_ecq', relationalElement=$existsSubSelect);
 
          let columnNullCheck =  $joinAliases->map(c| let newCol =^$c(alias=$targetAlias) ;$negate->if(|^DynaFunction(name = 'isNull', parameters=$newCol),|^DynaFunction(name = 'isNotNull', parameters=$newCol));)->andFilters($extensions);
 
